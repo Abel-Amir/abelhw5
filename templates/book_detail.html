@@ -2,13 +2,36 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Detail book</title>
 </head>
 <body>
-  <h1>{{book.title}}</h1>
-  <p>{{book.description}}</p>
-  <img src="{{book.image.url}}" alt="book image">
-  <p>{{book.created.date}}</p>
-  <p>{{book.updated.date}}</p>
+<div>
+    <p><a href="/books/">Back to all books</a></p>
+
+    <h1>{{book.title}}</h1>
+    <p>{{book.description}}</p>
+    <img src="{{book.image.url}}" alt="book image">
+    <p>{{book.created_date}}</p>
+    <p>{{book.updated_date}}</p>
+</div>
+<div>
+    <h2>Comments: </h2>
+    <form action="/books/{{book.id}}/" method="post">
+        {% csrf_token %}
+        {{comment_form.as_p}}
+        <input type="submit" value="Add comment">
+    </form>
+    <ul>
+        {% for i in comments %}
+            <li>
+                <p>{{i.comment_text}}</p>
+                <p>{{i.created_date}}</p>
+            </li>
+        {% endfor %}
+
+    </ul>
+</div>
+
+
 </body>
 </html>
